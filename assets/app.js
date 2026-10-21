@@ -149,6 +149,9 @@
       return;
     }
     for (const m of state.messages) chat.appendChild(bubbleEl(m));
+    if (!state.settings.key && state.messages.length <= 1) {
+      chat.appendChild(sysEl('第一次来：点右上「设置」填一个 API Key。没填的话是示例模式，不联网。'));
+    }
     scrollDown(true);
   }
 
