@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>J3 · 保安组长 | 怪谈出勤</title>
+<meta name="description" content="和《怪谈出勤》保安组长 J3 聊天。虚构角色视角模拟，纯前端，API Key 只存在你的浏览器里。" />
+<meta name="color-scheme" content="dark" />
+<meta property="og:title" content="J3 · 保安组长" />
+<meta property="og:description" content="……我是那个保安组长。作品里的，不是楼下那个。" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0b0c'/%3E%3Ccircle cx='32' cy='28' r='9' fill='none' stroke='%23d9a441' stroke-width='3'/%3E%3Crect x='18' y='42' width='28' height='4' rx='2' fill='%23d9a441'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<div class="scan" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="who">
+    <span class="led" id="led"></span>
+    <div>
+      <div class="name">경비 3팀 · <b>J3</b></div>
+      <div class="sub">保安组长 · 夜班</div>
+    </div>
+  </div>
+  <div class="clock" id="clock">--:--:--</div>
+  <div class="tools">
+    <button class="ghost" id="btn-mode" type="button" title="切换：扮演 / 正常对话">扮演中</button>
+    <button class="ghost" id="btn-clear" type="button" title="清空这段对话">清空</button>
+    <button class="ghost" id="btn-settings" type="button" title="接口与密钥">设置</button>
+  </div>
+</header>
+
+<main class="chat" id="chat" aria-live="polite"></main>
+
+<div class="chips" id="chips">
+  <button type="button">我该怎么跟领导划清边界？</button>
+  <button type="button">会上有人抢了我的功</button>
+  <button type="button">我想护一个人，但说不出口</button>
+  <button type="button">我最近只想待机</button>
+</div>
+
+<form class="composer" id="composer" autocomplete="off">
+  <textarea id="input" rows="1" placeholder="……说点什么" maxlength="2000" aria-label="输入消息"></textarea>
+  <button class="send" id="send" type="submit">发送</button>
+  <button class="stop" id="stop" type="button" hidden>停</button>
+</form>
+
+<footer class="foot">
+  <span>虚构角色视角模拟 · 不是真人观点</span>
+  <span class="sep">·</span>
+  <span>API Key 只保存在本机浏览器</span>
+  <span class="sep">·</span>
+  <a href="https://github.com/charlotte-night/j3-chat#readme" target="_blank" rel="noreferrer">说明</a>
+</footer>
+
+<dialog id="dlg" class="dlg">
+  <form method="dialog" id="form-settings">
+    <h2>接口设置</h2>
+    <p class="note">纯前端直连大模型接口。密钥只写进 <code>localStorage</code>，不会上传到任何地方；但任何本机脚本都能读到，公用电脑请用后清掉。</p>
+
+    <label>服务商
+      <select id="f-provider">
+        <option value="deepseek">DeepSeek（推荐）</option>
+        <option value="openai">OpenAI</option>
+        <option value="openrouter">OpenRouter</option>
+        <option value="custom">自定义（OpenAI 兼容）</option>
+      </select>
+    </label>
+
+    <label>接口地址
+      <input id="f-base" type="url" spellcheck="false" placeholder="https://api.deepseek.com/v1" />
+    </label>
+
+    <label>模型
+      <input id="f-model" type="text" spellcheck="false" placeholder="deepseek-chat" />
+    </label>
+
+    <label>API Key
+      <input id="f-key" type="password" spellcheck="false" placeholder="sk-..." autocomplete="off" />
+    </label>
+
+    <label class="check">
+      <input id="f-remember" type="checkbox" /> 记住这段对话（存在本机）
+    </label>
+
+    <div class="row">
+      <button type="button" class="ghost" id="btn-forget">清除密钥</button>
+      <button type="submit" class="ok" value="save">保存</button>
+    </div>
+    <p class="note small">没填 Key 时会用仓库自带的示例模式：只回一句固定的话，不联网。</p>
+  </form>
+</dialog>
+
+<script src="assets/prompt.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
